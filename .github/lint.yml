@@ -1,0 +1,31 @@
+name: lint
+
+jobs:
+  lint:
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        node-version:
+          - 18.x
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - run: npm run lint
+        env:
+          CI: true
