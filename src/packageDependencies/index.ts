@@ -3,6 +3,7 @@ import { promises as fs } from 'fs'
 interface PackageContents {
   dependencies: string[]
   devDependencies: string[]
+  versions: Record<string, string>
 }
 
 type PackageDependencies = (filename: string) => Promise<PackageContents>
@@ -13,6 +14,7 @@ export const packageDependencies: PackageDependencies = async filename => {
 
   return {
     dependencies: Object.keys(dependencies),
-    devDependencies: Object.keys(devDependencies)
+    devDependencies: Object.keys(devDependencies),
+    versions: { ...dependencies, ...devDependencies }
   }
 }

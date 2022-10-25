@@ -12,4 +12,10 @@ describe('packageDependencies', () => {
 
     expect(dependencies).toContain('yargs')
   })
+
+  test('has versions', async () => {
+    const { versions } = await packageDependencies('package.json')
+
+    expect(versions.jest).toBeDefined()
+  })
 })
