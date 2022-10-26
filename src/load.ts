@@ -7,7 +7,7 @@ const packageVersions = async (dependency: string): Promise<string[]> => {
     console.log('-- start fetch call --')
     const response = await fetch(url)
     console.log('-- fetch completed --')
-    const data = response.json()
+    const data = await response.json()
     console.log({ data })
   } catch (error) {
     console.log('// ERROR')
@@ -20,9 +20,9 @@ const packageVersions = async (dependency: string): Promise<string[]> => {
 export const load = async (filename: string): Promise<any> => {
   const { devDependencies } = await packageDependencies(filename)
 
-  devDependencies.map(async dependency => {
+  for await (const dependency of devDependencies) {
     const result = await packageVersions(dependency)
     console.log('-- result received --')
     console.log(result)
-  })
+  }
 }
