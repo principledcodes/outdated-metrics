@@ -1,28 +1,27 @@
+import { metric } from './metric'
+import { npmVersions } from './npmVersions'
 import { packageDependencies } from './packageDependencies'
 
-const packageVersions = async (dependency: string): Promise<string[]> => {
-  const url = `https://registry.npmjs.org/${dependency}`
-
-  try {
-    console.log('-- start fetch call --')
-    const response = await fetch(url)
-    console.log('-- fetch completed --')
-    const data = await response.json()
-    console.log({ data })
-  } catch (error) {
-    console.log('// ERROR')
-    console.log(error)
-  }
-
-  return [dependency]
-}
-
 export const load = async (filename: string): Promise<any> => {
-  const { devDependencies } = await packageDependencies(filename)
+  const {
+    dependencies,
+    devDependencies,
+    versions: allVersions
+  } = await packageDependencies(filename)
 
-  for await (const dependency of devDependencies) {
-    const result = await packageVersions(dependency)
-    console.log('-- result received --')
-    console.log(result)
+  const allDependencies = [...dependencies, ...devDependencies]
+
+  for await (const dependency of allDependencies) {
+    const versions = await npmVersions(dependency)
+
+    if (versions != null) {
+      console.log(
+        metric({
+          dependency,
+          version: allVersions[dependency],
+          versions
+        })
+      )
+    }
   }
 }
