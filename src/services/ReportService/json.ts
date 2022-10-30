@@ -1,5 +1,5 @@
 import { SummaryMetrics } from '../../types'
 
-export const json = (metrics: SummaryMetrics): SummaryMetrics => {
-  return metrics
-}
+type Json = (metrics: Partial<SummaryMetrics>) => string
+
+export const json: Json = metrics => JSON.stringify(metrics)

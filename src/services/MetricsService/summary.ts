@@ -12,10 +12,12 @@ export const summary = (metrics: Metrics): SummaryMetrics => {
     if (value.days > 0) dirtyPackages += 1
   })
 
+  const percentage = Math.round((dirtyPackages / totalPackages) * 10000) / 100
+
   return {
-    averageDays: totalDays / dirtyPackages,
+    averageDays: dirtyPackages > 0 ? Math.round(totalDays / dirtyPackages) : 0,
     dirtyPackages,
-    percentage: Math.round((dirtyPackages / totalPackages) * 100 / 100),
+    percentage,
     totalDays,
     totalPackages
   }
