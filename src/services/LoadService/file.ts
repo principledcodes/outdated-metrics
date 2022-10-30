@@ -1,14 +1,9 @@
 import { promises as fs } from 'fs'
-
-interface PackageContents {
-  dependencies: string[]
-  devDependencies: string[]
-  versions: Record<string, string>
-}
+import { PackageContents } from '../../types'
 
 type PackageDependencies = (filename: string) => Promise<PackageContents>
 
-export const packageDependencies: PackageDependencies = async filename => {
+export const file: PackageDependencies = async filename => {
   const data = await fs.readFile(filename, 'utf8')
   const { dependencies, devDependencies } = JSON.parse(data)
 

@@ -1,0 +1,25 @@
+import type { Arguments, CommandBuilder } from 'yargs'
+import { generate } from '../generate'
+import { LoadService } from '../services'
+
+interface Options {
+  uri: string
+}
+
+export const command: string = 'url <uri>'
+export const desc: string = 'metrics on outdated packages from a url'
+
+export const builder: CommandBuilder<Options, Options> = yargs =>
+  yargs
+    .options({
+      uri: { type: 'string' }
+    })
+    .positional('uri', { type: 'string', demandOption: true })
+
+export const handler = async (argv: Arguments<Options>): Promise<void> => {
+  const { uri } = argv
+  const data = await LoadService.url(uri)
+
+  await generate(data)
+  process.exit(0)
+}
