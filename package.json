@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "docs": "docsify serve ./docs",
     "lint": "ts-standard ./src",
     "lint:fix": "npm run lint -- --fix",
     "package": "npm run build && pkg . --targets node18 --output outdated-metrics",
