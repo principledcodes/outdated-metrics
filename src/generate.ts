@@ -1,5 +1,6 @@
 import Progress from 'cli-progress'
 import { BaseOptions } from './cli'
+import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
 import { Metrics, PackageContents } from './types'
 
@@ -10,7 +11,8 @@ export const generate = async (
   const {
     devOnly,
     excludeDev,
-    maxDate
+    maxDate,
+    silent
   } = options
 
   const {
@@ -26,7 +28,7 @@ export const generate = async (
 
   const metrics: Metrics = {}
 
-  const bar = new Progress.SingleBar({}, Progress.Presets.shades_classic)
+  const bar = new ProgressBar(silent)
   bar.start(deps.length, 0)
 
   for await (const dependency of deps) {
