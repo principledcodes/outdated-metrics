@@ -1,7 +1,27 @@
 import Progress from 'cli-progress'
 import { BaseOptions } from './cli'
 import { MetricsService, NpmService, ReportService } from './services'
-import { Metrics, PackageContents } from './types'
+import { DependencyMetric, Metrics, PackageContents } from './types'
+
+// QUESTION: maxDate declared as a non optional in BaseOptions. How does ternary operator works?
+// QUESTION: maxDate declared as string. Should it be a number?
+
+const generateCb = async (
+  dependency: string,
+  maxDate?: string
+): Promise<DependencyMetric | null> => {
+  const versions = await NpmService.versions(dependency)
+
+  if (versions == null) return null
+
+  const result = MetricsService.calculate({
+    maxDate: maxDate == null ? new Date() : new Date(maxDate),
+    version: allVersions[dependency],
+    versions
+  })
+
+  return result
+}
 
 export const generate = async (
   contents: PackageContents,
@@ -30,15 +50,9 @@ export const generate = async (
   bar.start(deps.length, 0)
 
   for await (const dependency of deps) {
-    const versions = await NpmService.versions(dependency)
+    const result = await generateCb(dependency)
 
-    if (versions != null) {
-      const result = MetricsService.calculate({
-        maxDate: maxDate == null ? new Date() : new Date(maxDate),
-        version: allVersions[dependency],
-        versions
-      })
-
+    if (result != null) {
       metrics[dependency] = result
     }
 
