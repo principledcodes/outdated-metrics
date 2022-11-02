@@ -1,4 +1,3 @@
-import Progress from 'cli-progress'
 import { BaseOptions } from './cli'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
