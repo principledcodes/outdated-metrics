@@ -56,6 +56,11 @@ void yargs(hideBin(process.argv))
       description: 'Include percentage of packages out of date',
       type: 'boolean'
     },
+    silent: {
+      default: false,
+      description: 'Hide progress bar',
+      type: 'boolean'      
+    },
     totalDays: {
       default: false,
       description: 'Include total days out of date',
