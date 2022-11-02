@@ -2,7 +2,7 @@ import { PackageContents } from '../../types'
 
 type PackageDependencies = (url: string) => Promise<PackageContents>
 
-export const url: PackageDependencies = async url => {
+const load: PackageDependencies = async url => {
   const response = await fetch(url)
   const data = await response.json()
 
@@ -13,4 +13,8 @@ export const url: PackageDependencies = async url => {
     devDependencies: Object.keys(devDependencies),
     versions: { ...dependencies, ...devDependencies }
   }
+}
+
+export const url = {
+  load
 }

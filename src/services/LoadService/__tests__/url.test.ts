@@ -6,7 +6,7 @@ describe('url', () => {
   let response: PackageContents
 
   beforeAll(async () => {
-    response = await url(uri)
+    response = await url.load(uri)
   })
 
   test('has devDependencies', () => {
