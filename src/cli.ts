@@ -11,6 +11,7 @@ export interface BaseOptions {
   format: string
   maxDate: string
   percentage: boolean
+  silent: boolean
   totalDays: boolean
   totalPackages: boolean
 }
@@ -59,7 +60,7 @@ void yargs(hideBin(process.argv))
     silent: {
       default: false,
       description: 'Hide progress bar',
-      type: 'boolean'      
+      type: 'boolean'
     },
     totalDays: {
       default: false,
