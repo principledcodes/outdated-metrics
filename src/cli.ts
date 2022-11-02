@@ -47,7 +47,7 @@ void yargs(hideBin(process.argv))
       type: 'boolean'
     },
     maxDate: {
-      default: undefined,
+      default: null,
       description: 'Include number of packages out of date',
       type: 'string'
     },
