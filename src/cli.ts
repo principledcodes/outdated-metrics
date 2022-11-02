@@ -11,6 +11,7 @@ export interface BaseOptions {
   format: string
   maxDate: string
   percentage: boolean
+  silent: boolean
   totalDays: boolean
   totalPackages: boolean
 }
@@ -54,6 +55,11 @@ void yargs(hideBin(process.argv))
     percentage: {
       default: false,
       description: 'Include percentage of packages out of date',
+      type: 'boolean'
+    },
+    silent: {
+      default: false,
+      description: 'Hide progress bar',
       type: 'boolean'
     },
     totalDays: {
