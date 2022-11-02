@@ -9,7 +9,8 @@ export const generate = async (
 ): Promise<any> => {
   const {
     devOnly,
-    excludeDev
+    excludeDev,
+    maxDate
   } = options
 
   const {
@@ -25,8 +26,6 @@ export const generate = async (
 
   const metrics: Metrics = {}
 
-  process.stdout.write('\n')
-
   const bar = new Progress.SingleBar({}, Progress.Presets.shades_classic)
   bar.start(deps.length, 0)
 
@@ -35,7 +34,7 @@ export const generate = async (
 
     if (versions != null) {
       const result = MetricsService.calculate({
-        dependency,
+        maxDate: maxDate == null ? new Date() : new Date(maxDate),
         version: allVersions[dependency],
         versions
       })
@@ -49,8 +48,6 @@ export const generate = async (
   bar.stop()
 
   const summary = MetricsService.summary(metrics)
-
-  process.stdout.write('\n')
 
   process.stdout.write(ReportService.select(summary, options))
 }

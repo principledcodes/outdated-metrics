@@ -1,7 +1,4 @@
 const day = 24 * 60 * 60 * 1000 // one day in milliseconds
 
-export const daysSince = (date: Date): number => {
-  const today = new Date().getTime()
-
-  return Math.round(Math.abs((today - date.getTime()) / day))
-}
+export const daysSince = (date: Date, maxDate: Date): number =>
+  Math.round(Math.abs(maxDate.getTime() - date.getTime()) / day)

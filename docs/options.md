@@ -106,6 +106,25 @@ outdated-metrics \
   --dirtyPackages
 ```
 
+## maxDate
+
+Specification | Description
+--------------|--------------------
+Option        | --maxDate, --max-date
+Type          | string (yyyy-mm-dd)
+Default       | undefined
+
+Constrain the calculation of metrics by filtering out releases that occur after
+maxDate
+
+#### Examples
+
+```bash
+outdated-metrics \
+  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  --maxDate 2022-09-30
+```
+
 ## percentage
 
 Specification | Description

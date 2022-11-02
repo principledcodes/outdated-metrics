@@ -9,6 +9,7 @@ export interface BaseOptions {
   dirtyPackages: boolean
   excludeDev: boolean
   format: string
+  maxDate: string
   percentage: boolean
   totalDays: boolean
   totalPackages: boolean
@@ -44,6 +45,11 @@ void yargs(hideBin(process.argv))
       default: false,
       description: 'Include number of packages out of date',
       type: 'boolean'
+    },
+    maxDate: {
+      default: undefined,
+      description: 'Include number of packages out of date',
+      type: 'string'
     },
     percentage: {
       default: false,
