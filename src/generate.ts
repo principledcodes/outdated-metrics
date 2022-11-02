@@ -10,7 +10,7 @@ export const generate = async (
   const {
     devOnly,
     excludeDev,
-    maxDate,
+    maxDate: maxDateInput,
     silent
   } = options
 
@@ -25,6 +25,22 @@ export const generate = async (
   if (devOnly) { deps = devDependencies }
   if (excludeDev) { deps = dependencies }
 
+  let maxDate = new Date()
+
+  // TODO: it should be moved to the input validation service/lib
+  // See https://github.com/craigs/outdated-metrics/issues/17
+  if (maxDateInput != null) {
+    const maxDateEpoch = Date.parse(maxDateInput)
+
+    if (isNaN(maxDateEpoch)) {
+      throw new Error(`Provided date '${maxDateInput}' is not valid. ` +
+        'Please enter date in YYYY-MM-DD format.')
+    }
+
+    process.stdout.write(`Filtering out releases that occur after ${maxDateInput}\n`)
+    maxDate = new Date(maxDateEpoch)
+  }
+
   const metrics: Metrics = {}
 
   const bar = new ProgressBar(silent)
@@ -35,7 +51,7 @@ export const generate = async (
 
     if (versions != null) {
       const result = MetricsService.calculate({
-        maxDate: maxDate == null ? new Date() : new Date(maxDate),
+        maxDate,
         version: allVersions[dependency],
         versions
       })

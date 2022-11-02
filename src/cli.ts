@@ -49,7 +49,9 @@ void yargs(hideBin(process.argv))
     },
     maxDate: {
       default: null,
-      description: 'Include number of packages out of date',
+      // QUESTION: is it after or before? See options.md.
+      description: 'Filter out releases that occur after maxDate. \
+        Should be in YYYY-MM-DD format.\n',
       type: 'string'
     },
     percentage: {
