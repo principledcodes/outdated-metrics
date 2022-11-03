@@ -1,4 +1,4 @@
-import { BaseOptions } from "../cli";
+import { BaseOptions } from './options'
 
 const checkMaxDate = (maxDate: string | null): boolean => {
   if (maxDate != null) {

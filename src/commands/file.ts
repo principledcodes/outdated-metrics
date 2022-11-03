@@ -1,6 +1,7 @@
 import type { Arguments, CommandBuilder } from 'yargs'
 import { BaseOptions } from '../cli'
 import { generate } from '../generate'
+import BaseOptions from '../cli/options'
 import { LoadService } from '../services'
 
 interface Options extends BaseOptions {
