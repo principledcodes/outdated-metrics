@@ -1,4 +1,4 @@
-import { BaseOptions } from './cli'
+import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
 import { Metrics, PackageContents } from './types'

@@ -37,8 +37,8 @@ void yargs(hideBin(process.argv))
     },
     maxDate: {
       default: null,
-      description: 'Filter out releases that occur after maxDate. \
-        Should be in YYYY-MM-DD format.\n',
+      description: 'Filter out releases that occur after maxDate. ' +
+        'Should be in YYYY-MM-DD format.',
       type: 'string'
     },
     percentage: {
