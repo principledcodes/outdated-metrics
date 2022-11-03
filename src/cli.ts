@@ -2,19 +2,7 @@
 
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
-
-export interface BaseOptions {
-  averageDays: boolean
-  devOnly: boolean
-  dirtyPackages: boolean
-  excludeDev: boolean
-  format: string
-  maxDate: string
-  percentage: boolean
-  silent: boolean
-  totalDays: boolean
-  totalPackages: boolean
-}
+import { check } from './cli/check'
 
 void yargs(hideBin(process.argv))
   .commandDir('commands')
@@ -49,7 +37,8 @@ void yargs(hideBin(process.argv))
     },
     maxDate: {
       default: null,
-      description: 'Include number of packages out of date',
+      description: 'Filter out releases that occur after maxDate. ' +
+        'Should be in YYYY-MM-DD format.',
       type: 'string'
     },
     percentage: {
@@ -73,4 +62,5 @@ void yargs(hideBin(process.argv))
       type: 'boolean'
     }
   })
+  .check(check, true)
   .argv

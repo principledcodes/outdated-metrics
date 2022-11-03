@@ -1,4 +1,4 @@
-import { BaseOptions } from '../../cli'
+import { BaseOptions } from '../../cli/options'
 import { SummaryMetrics } from '../../types'
 import { columnar } from './columnar'
 import { filter } from './filter'
@@ -6,7 +6,7 @@ import { json } from './json'
 
 type Select = (
   metrics: SummaryMetrics,
-  options: BaseOptions
+  options: BaseOptions // TODO: BaseOptions are CLI specific options, consider declaring FilterOptions
 ) => string
 
 export const select: Select = (metrics, options) => {

@@ -1,5 +1,5 @@
 import type { Arguments, CommandBuilder } from 'yargs'
-import { BaseOptions } from '../cli'
+import { BaseOptions } from '../cli/options'
 import { generate } from '../generate'
 import { LoadService } from '../services'
 

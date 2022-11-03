@@ -1,4 +1,4 @@
-import { BaseOptions } from './cli'
+import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
 import { Metrics, PackageContents } from './types'
@@ -10,7 +10,7 @@ export const generate = async (
   const {
     devOnly,
     excludeDev,
-    maxDate,
+    maxDate: maxDateInput,
     silent
   } = options
 
@@ -25,6 +25,12 @@ export const generate = async (
   if (devOnly) { deps = devDependencies }
   if (excludeDev) { deps = dependencies }
 
+  const maxDate = maxDateInput == null ? new Date() : new Date(maxDateInput)
+
+  if (maxDateInput != null) {
+    process.stdout.write(`Filtering out releases that occur after ${maxDateInput}\n`)
+  }
+
   const metrics: Metrics = {}
 
   const bar = new ProgressBar(silent)
@@ -35,7 +41,7 @@ export const generate = async (
 
     if (versions != null) {
       const result = MetricsService.calculate({
-        maxDate: maxDate == null ? new Date() : new Date(maxDate),
+        maxDate,
         version: allVersions[dependency],
         versions
       })
