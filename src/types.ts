@@ -16,6 +16,9 @@ export interface PackageContents {
   versions: Record<string, string>
 }
 
+/** function that loads a package.json from from a location */
+export type Loader = (location: string) => Promise<PackageContents>
+
 export type Versions = Record<string, Date>
 
 export interface SummaryMetrics {

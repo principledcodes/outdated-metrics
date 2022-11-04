@@ -3,9 +3,21 @@
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
 import { check } from './cli/check'
+import { LoadService } from './services'
+import { generate } from './generate'
+import { BaseOptions } from './cli/options'
 
 void yargs(hideBin(process.argv))
-  .commandDir('commands')
+  // @ts-expect-error
+  .command('$0 <location>', '', () => {}, async (options: BaseOptions) => {
+    const { location } = options
+    const data = await LoadService.file(location)
+    // const data = await LoadService.url(uri)
+
+    await generate(data, options)
+
+    process.exit(0)
+  })
   .strict()
   .alias({ h: 'help' })
   .options({
@@ -62,5 +74,6 @@ void yargs(hideBin(process.argv))
       type: 'boolean'
     }
   })
+  .positional('location', { type: 'string', demandOption: true })
   .check(check, true)
   .argv

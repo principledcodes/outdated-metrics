@@ -1,9 +1,7 @@
 import fetch from 'isomorphic-fetch'
-import { PackageContents } from '../../types'
+import { Loader } from '../../types'
 
-type PackageDependencies = (url: string) => Promise<PackageContents>
-
-export const url: PackageDependencies = async url => {
+export const url: Loader = async url => {
   const response = await fetch(url)
   const data = await response.json()
 

@@ -3,11 +3,6 @@
   - [Quick start](quickstart.md)
   - [Usage](usage.md)
 
-- Commands
-
-  - [file](commands/file.md)
-  - [url](commands/file.md)
-
 - Options
   - [cli options](options.md)
   - [averageDays](options#averageDays)
