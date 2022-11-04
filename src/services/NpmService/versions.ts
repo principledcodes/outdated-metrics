@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch'
 import { extractVersions } from './extractVersions'
 import { Versions } from '../../types'
 

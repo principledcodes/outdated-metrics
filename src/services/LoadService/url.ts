@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch'
 import { PackageContents } from '../../types'
 
 type PackageDependencies = (url: string) => Promise<PackageContents>
