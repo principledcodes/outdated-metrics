@@ -7,6 +7,7 @@ const options: BaseOptions = {
   dirtyPackages: false,
   excludeDev: false,
   format: 'json',
+  location: '',
   maxDate: null,
   percentage: false,
   silent: false,

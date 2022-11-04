@@ -22,8 +22,8 @@ export const generate = async (
 
   let deps = [...dependencies, ...devDependencies]
 
-  if (devOnly) { deps = devDependencies }
-  if (excludeDev) { deps = dependencies }
+  if (devOnly) deps = devDependencies
+  if (excludeDev) deps = dependencies
 
   const maxDate = maxDateInput == null ? new Date() : new Date(maxDateInput)
 

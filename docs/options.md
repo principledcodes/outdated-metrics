@@ -27,7 +27,7 @@ The output format for the generated metrics.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --format column
 ```
 
@@ -46,7 +46,7 @@ When excludeDev is specified, deOnly is ignored.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --devOnly
 ```
 
@@ -65,7 +65,7 @@ dependencies only.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --excludeDev
 ```
 
@@ -84,7 +84,7 @@ packages have been available.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --averageDays
 ```
 
@@ -102,7 +102,7 @@ Include in the output the total number of out of date packages.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --dirtyPackages
 ```
 
@@ -121,7 +121,7 @@ maxDate
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --maxDate 2022-09-30
 ```
 
@@ -140,7 +140,7 @@ to date packages. Formatted to 2 decimal places.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --percentage
 ```
 
@@ -158,7 +158,7 @@ Output the total number of days that new packages have been available.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --totalDays
 ```
 
@@ -177,6 +177,6 @@ Output the total number of packages defined in package.json.
 
 ```bash
 outdated-metrics \
-  url https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
+  https://raw.githubusercontent.com/craigs/outdated-metrics/main/package.json \
   --totalPackages
 ```
