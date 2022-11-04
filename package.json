@@ -12,6 +12,7 @@
     "lint": "ts-standard ./src",
     "lint:fix": "npm run lint -- --fix",
     "package": "npm run build && pkg . --targets node18 --output outdated-metrics",
+    "package:bin": "pkg . --targets $TARGET --output ./bin/$DESTINATION",
     "test": "NODE_NO_WARNINGS=1 jest",
     "test:watch": "npm run test -- --watchAll"
   },
