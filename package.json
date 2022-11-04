@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "cli-progress": "^3.11.2",
+    "isomorphic-fetch": "^3.0.0",
     "yargs": "^17.6.0"
   }
 }
