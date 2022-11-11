@@ -11,7 +11,7 @@
     "docs": "docsify serve ./docs",
     "lint": "ts-standard ./src",
     "lint:fix": "npm run lint -- --fix",
-    "package": "npm run build && pkg . --targets node18 --output outdated-metrics",
+    "package": "npm run build && pkg . --targets node18 --output dist/outdated-metrics",
     "test": "NODE_NO_WARNINGS=1 jest",
     "test:watch": "npm run test -- --watchAll"
   },
