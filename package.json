@@ -11,12 +11,18 @@
     "docs": "docsify serve ./docs",
     "lint": "ts-standard ./src",
     "lint:fix": "npm run lint -- --fix",
-    "package": "npm run build && pkg . --targets node18 --output dist/outdated-metrics",
+    "package": "npm run build && pkg . --no-bytecode --output dist/od-${VERSION:-\"vUnknown\"}",
     "test": "NODE_NO_WARNINGS=1 jest",
     "test:watch": "npm run test -- --watchAll"
   },
   "pkg": {
-    "scripts": "build/**/*.js"
+    "scripts": "build/**/*.js",
+    "targets": [
+      "node18-linux-arm64",
+      "node18-linux-x64",
+      "node18-macos-arm64",
+      "node18-macos-x64"
+    ]
   },
   "keywords": [],
   "author": "Craig Sullivan",
