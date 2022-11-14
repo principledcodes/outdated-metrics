@@ -6,5 +6,4 @@ plugins:
   - "@semantic-release/release-notes-generator"
   - - "@semantic-release/github"
     - assets:
-        - path: "dist/outdated-metrics"
-          label: outdated-metrics-${nextRelease.version}
+        - path: "dist/**"
