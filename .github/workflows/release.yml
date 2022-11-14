@@ -24,7 +24,9 @@ jobs:
           restore-keys: npm-
 
       - name: Build binaries
-        run: npm run package
+        run: |
+          npm ci
+          npm run package
 
       - name: Archive binaries
         uses: actions/upload-artifact@v3
