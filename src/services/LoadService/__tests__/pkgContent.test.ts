@@ -16,7 +16,7 @@ const testCases: TestCase[] = [
       devDependencies: {
         '@types/jest': '^29.2.3',
         jest: '^29.3.1'
-      },
+      }
     },
     expected: {
       dependencies: ['isomorphic-fetch', 'yargs'],
@@ -35,14 +35,14 @@ const testCases: TestCase[] = [
       dependencies: {
         'isomorphic-fetch': '^3.0.0',
         yargs: '^17.6.2'
-      },
+      }
     },
     expected: {
       dependencies: ['isomorphic-fetch', 'yargs'],
       devDependencies: [],
       versions: {
         'isomorphic-fetch': '^3.0.0',
-        yargs: '^17.6.2',
+        yargs: '^17.6.2'
       }
     }
   },
@@ -52,7 +52,7 @@ const testCases: TestCase[] = [
       devDependencies: {
         '@types/jest': '^29.2.3',
         jest: '^29.3.1'
-      },
+      }
     },
     expected: {
       dependencies: [],
@@ -67,7 +67,7 @@ const testCases: TestCase[] = [
   {
     data: {
       dependencies: {},
-      devDependencies: {},
+      devDependencies: {}
     },
     expected: {
       dependencies: [],
@@ -77,7 +77,7 @@ const testCases: TestCase[] = [
   },
   {
     data: {
-      devDependencies: {},
+      devDependencies: {}
     },
     expected: {
       dependencies: [],
@@ -87,7 +87,7 @@ const testCases: TestCase[] = [
   },
   {
     data: {
-      dependencies: {},
+      dependencies: {}
     },
     expected: {
       dependencies: [],
@@ -102,7 +102,7 @@ const testCases: TestCase[] = [
       devDependencies: [],
       versions: {}
     }
-  },
+  }
 ]
 
 describe('pkgContent', () => {
