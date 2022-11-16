@@ -1,8 +1,5 @@
-import { file } from './file'
-import { select } from './select'
-import { url } from './url'
+import { load } from './load'
+
 export const LoadService = {
-  file,
-  select,
-  url
+  load,
 }

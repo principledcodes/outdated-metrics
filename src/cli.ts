@@ -9,10 +9,9 @@ import { BaseOptions } from './cli/options'
 
 void yargs(hideBin(process.argv))
   // @ts-expect-error
-  .command('$0 <location>', '', () => {}, async (options: BaseOptions) => {
+  .command('$0 <location>', '', () => { }, async (options: BaseOptions) => {
     const { location } = options
-    const data = await LoadService.file(location)
-    // const data = await LoadService.url(uri)
+    const data = await LoadService.load(location)
 
     await generate(data, options)
 
