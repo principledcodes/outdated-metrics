@@ -28,6 +28,12 @@ jobs:
           npm ci
           npm run package
 
+      - name: Prepare distribution
+        run: |
+          cd dist
+          for file in *; do tar -cvzf $file.tar.gz $file; done
+          find . -type f -not -name '*.tar.gz' | xargs rm
+
       - name: Compute checksums
         run: |
           cd dist
