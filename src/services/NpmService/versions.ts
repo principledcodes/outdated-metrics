@@ -1,3 +1,4 @@
+import consola from 'consola'
 import fetch from 'isomorphic-fetch'
 import { extractVersions } from './extractVersions'
 import { Versions } from '../../types'
@@ -12,7 +13,6 @@ export const versions = async (dependency: string): Promise<Versions | undefined
 
     return extractVersions(versions)
   } catch (error) {
-    console.log('// ERROR')
-    console.log(error)
+    consola.error(error)
   }
 }
