@@ -22,9 +22,13 @@ export type Loader = (location: string) => Promise<PackageContents>
 export type Versions = Record<string, Date>
 
 export interface SummaryMetrics {
+  averageDays: number
   dirtyPackages: number
+  percentage: number
   totalDays: number
   totalPackages: number
-  averageDays: number
-  percentage: number
+}
+
+export type Options<Type> = {
+  [Property in keyof Type]: boolean
 }
