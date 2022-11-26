@@ -1,9 +1,8 @@
-import { BaseOptions } from '../../cli/options'
-import { SummaryMetrics } from '../../types'
+import { Options, SummaryMetrics } from '../../types'
 
 type Filter = (
   metrics: SummaryMetrics,
-  options: BaseOptions // TODO: BaseOptions are CLI specific options, consider declaring FilterOptions
+  options: Options<SummaryMetrics>
 ) => Partial<SummaryMetrics>
 
 export const filter: Filter = (metrics, options) => {
@@ -25,3 +24,10 @@ export const filter: Filter = (metrics, options) => {
 
   return filtered
 }
+
+// Object.entries(options)
+// .filter(([key, val]) => val)
+// .reduce((acc, [key]) => {
+//   acc[key] = metrics[key]
+//   return acc
+// }, {})
