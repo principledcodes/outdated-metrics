@@ -42,7 +42,7 @@ const testCases: TestCase[] = [
   {
     options: { ...defaultOptions, totalDays: true, totalPackages: true },
     expected: { totalDays: 14, totalPackages: 55 }
-  },
+  }
 ]
 
 describe('filter', () => {
