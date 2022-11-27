@@ -3,7 +3,7 @@ import { columnar } from './columnar'
 import { filter } from './filter'
 import { json } from './json'
 
-const fmt = (output: string): Formatter => output === 'column' ? columnar : json
+const fmt = (format: string): Formatter => format === 'column' ? columnar : json
 
 type Format = (
   metrics: SummaryMetrics,
