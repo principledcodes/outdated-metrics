@@ -56,5 +56,5 @@ export const generate = async (
 
   const summary = MetricsService.summary(metrics)
 
-  process.stdout.write(ReportService.select(summary, options))
+  process.stdout.write(ReportService.format(summary, options))
 }

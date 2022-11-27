@@ -1,5 +1,3 @@
-import { SummaryMetrics } from '../../types'
+import { Formatter } from '../../types'
 
-type Json = (metrics: Partial<SummaryMetrics>) => string
-
-export const json: Json = metrics => JSON.stringify(metrics)
+export const json: Formatter = metrics => JSON.stringify(metrics)

@@ -32,3 +32,5 @@ export interface SummaryMetrics {
 export type Options<Type> = {
   [Property in keyof Type]: boolean
 }
+
+export type Formatter = (metrics: Partial<SummaryMetrics>) => string

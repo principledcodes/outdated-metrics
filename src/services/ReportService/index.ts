@@ -1,9 +1,5 @@
-import { columnar } from './columnar'
-import { json } from './json'
-import { select } from './select'
+import { format } from './format'
 
 export const ReportService = {
-  columnar,
-  json,
-  select
+  format
 }
