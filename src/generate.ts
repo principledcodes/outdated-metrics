@@ -58,5 +58,5 @@ export const generate = async (
   const summary = MetricsService.summary(metrics)
 
   consola.success('Report ready!')
-  consola.info(ReportService.select(summary, options))
+  consola.info(ReportService.format(summary, options))
 }
