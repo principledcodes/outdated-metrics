@@ -1,4 +1,4 @@
-name: test
+name: Build, lint and test
 
 on:
   push:
