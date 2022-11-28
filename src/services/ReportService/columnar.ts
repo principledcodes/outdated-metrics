@@ -1,5 +1,3 @@
-import { SummaryMetrics } from '../../types'
+import { Formatter } from '../../types'
 
-type Columnar = (metrics: Partial<SummaryMetrics>) => string
-
-export const columnar: Columnar = metrics => Object.values(metrics).join(' ')
+export const columnar: Formatter = metrics => Object.values(metrics).join(' ')

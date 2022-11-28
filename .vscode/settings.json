@@ -3,5 +3,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "files.trimTrailingWhitespace": true
+  "files.trimTrailingWhitespace": true,
+  "editor.defaultFormatter": "vscode.typescript-language-features"
 }
