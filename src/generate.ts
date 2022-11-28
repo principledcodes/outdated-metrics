@@ -1,3 +1,4 @@
+import consola from 'consola'
 import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
@@ -28,7 +29,7 @@ export const generate = async (
   const maxDate = maxDateInput == null ? new Date() : new Date(maxDateInput)
 
   if (maxDateInput != null) {
-    process.stdout.write(`Filtering out releases that occur after ${maxDateInput}\n`)
+    consola.info(`Filtering out releases that occur after ${maxDateInput}`)
   }
 
   const metrics: Metrics = {}
@@ -56,5 +57,6 @@ export const generate = async (
 
   const summary = MetricsService.summary(metrics)
 
-  process.stdout.write(ReportService.select(summary, options))
+  consola.success('Report ready!')
+  consola.info(ReportService.select(summary, options))
 }
