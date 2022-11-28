@@ -2,7 +2,17 @@
 
 Metrics to help you quantify how outdated a package.json file is
 
-## Installing
+## Installation
+
+### Homebrew
+If you're on macOS or Linux you can install a binary release using [brew](https://brew.sh/):
+```sh
+$ brew tap elevatepartners/outdated-metrics
+$ brew install elevatepartners/outdated-metrics/outdated-metrics
+```
+
+### Binary
+You can download the binary from the [releases](https://github.com/ElevatePartners/outdated-metrics/releases) page on GitHub and add to your `$PATH`.
 
 ## Usage
 
