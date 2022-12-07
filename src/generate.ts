@@ -2,7 +2,19 @@ import consola from 'consola'
 import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
-import { Metrics, PackageContents } from './types'
+import { DependencyMetric, Metrics, PackageContents, Versions } from './types'
+import { scan } from 'promise-xray'
+
+const getDependencyMetrics = (currentVersion: string, maxDate: Date) =>
+  (versions?: Versions) => {
+    if (!versions) return
+
+    return MetricsService.calculate({
+      maxDate,
+      version: currentVersion,
+      versions
+    })
+  }
 
 export const generate = async (
   contents: PackageContents,
@@ -18,7 +30,7 @@ export const generate = async (
   const {
     dependencies,
     devDependencies,
-    versions: allVersions
+    versions: depsVersions // current version for each dependency
   } = contents
 
   let deps = [...dependencies, ...devDependencies]
@@ -32,26 +44,20 @@ export const generate = async (
     consola.info(`Filtering out releases that occur after ${maxDateInput}`)
   }
 
-  const metrics: Metrics = {}
-
   const bar = new ProgressBar(silent)
   bar.start(deps.length, 0)
 
-  for await (const dependency of deps) {
-    const versions = await NpmService.versions(dependency)
+  const promisedMetrics = deps.map((dependency) =>
+    NpmService.versions(dependency)
+      .then(getDependencyMetrics(depsVersions[dependency], maxDate))
+  )
 
-    if (versions != null) {
-      const result = MetricsService.calculate({
-        maxDate,
-        version: allVersions[dependency],
-        versions
-      })
+  const rawMetrics = await scan(promisedMetrics, bar)
 
-      metrics[dependency] = result
-    }
-
-    bar.increment()
-  }
+  const metrics = rawMetrics.reduce<Metrics>((acc, dm, idx) => {
+    if (dm != null) acc[deps[idx]] = dm
+    return acc
+  }, {})
 
   bar.stop()
 

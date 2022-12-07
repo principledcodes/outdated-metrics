@@ -44,6 +44,7 @@
     "cli-progress": "^3.11.2",
     "consola": "^2.15.3",
     "isomorphic-fetch": "^3.0.0",
+    "promise-xray": "file:../nodejs/promise-xray",
     "yargs": "^17.6.2"
   }
 }
