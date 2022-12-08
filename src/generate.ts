@@ -3,7 +3,7 @@ import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
 import { DependencyMetric, Metrics, PackageContents, Versions } from './types'
-import { scan } from 'promise-xray'
+import { all } from 'promise-xray'
 
 const getDependencyMetrics = (currentVersion: string, maxDate: Date) =>
   (versions?: Versions) => {
@@ -52,7 +52,7 @@ export const generate = async (
       .then(getDependencyMetrics(depsVersions[dependency], maxDate))
   )
 
-  const rawMetrics = await scan(promisedMetrics, bar)
+  const rawMetrics = await all(promisedMetrics, bar)
 
   const metrics = rawMetrics.reduce<Metrics>((acc, dm, idx) => {
     if (dm != null) acc[deps[idx]] = dm
