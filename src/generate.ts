@@ -3,7 +3,7 @@ import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, NpmService, ReportService } from './services'
 import { DependencyMetric, Metrics, PackageContents, Versions } from './types'
-import { all } from 'promise-xray'
+import { all } from '@elevatepartners/promise-xray'
 
 const getDependencyMetrics = (currentVersion: string, maxDate: Date) =>
   (versions?: Versions) => {
