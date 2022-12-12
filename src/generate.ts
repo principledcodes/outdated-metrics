@@ -1,8 +1,8 @@
 import consola from 'consola'
 import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
-import { MetricsService, MetricsGeneratorService, NpmService, ReportService } from './services'
-import { Metrics, PackageContents } from './types'
+import { MetricsService, MetricsGeneratorService, ReportService } from './services'
+import { Dependency, Metrics, PackageContents } from './types'
 import { all } from '@elevatepartners/promise-xray'
 
 export const generate = async (
@@ -22,10 +22,16 @@ export const generate = async (
     versions: depsVersions // current version for each dependency
   } = contents
 
-  let deps = [...dependencies, ...devDependencies]
+  let _deps = [...dependencies, ...devDependencies]
 
-  if (devOnly) deps = devDependencies
-  if (excludeDev) deps = dependencies
+  if (devOnly) _deps = devDependencies
+  if (excludeDev) _deps = dependencies
+
+  // TODO: contents should output Dependency[]
+  const deps: Dependency[] = _deps.map((dependencyName) => ({
+    name: dependencyName,
+    version: depsVersions[dependencyName]
+  }))
 
   const maxDate = maxDateInput == null ? new Date() : new Date(maxDateInput)
 
@@ -36,17 +42,12 @@ export const generate = async (
   const bar = new ProgressBar(silent)
   bar.start(deps.length, 0)
 
-  const promisedMetrics = deps.map((dependency) =>
-    NpmService.versions(dependency)
-      .then(MetricsGeneratorService.dependencyMetrics({
-        currentVersion: depsVersions[dependency], maxDate
-      }))
-  )
+  const metricsTasks = MetricsGeneratorService.tasks({ deps, maxDate })
 
-  const rawMetrics = await all(promisedMetrics, bar)
+  const rawMetrics = await all(metricsTasks, bar)
 
   const metrics = rawMetrics.reduce<Metrics>((acc, dm, idx) => {
-    if (dm != null) acc[deps[idx]] = dm
+    if (dm != null) acc[_deps[idx]] = dm
     return acc
   }, {})
 
