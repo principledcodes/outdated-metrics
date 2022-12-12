@@ -44,12 +44,10 @@ export const generate = async (
 
   const metricsTasks = MetricsGeneratorService.tasks({ deps, maxDate })
 
+  // TODO: update to allSettled
   const rawMetrics = await all(metricsTasks, bar)
 
-  const metrics = rawMetrics.reduce<Metrics>((acc, dm, idx) => {
-    if (dm != null) acc[_deps[idx]] = dm
-    return acc
-  }, {})
+  const metrics = rawMetrics.reduce<Metrics>(MetricsGeneratorService.metricsReducer(deps), {})
 
   bar.stop()
 
