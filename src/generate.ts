@@ -1,20 +1,9 @@
 import consola from 'consola'
 import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
-import { MetricsService, NpmService, ReportService } from './services'
-import { DependencyMetric, Metrics, PackageContents, Versions } from './types'
+import { MetricsService, MetricsGeneratorService, NpmService, ReportService } from './services'
+import { Metrics, PackageContents } from './types'
 import { all } from '@elevatepartners/promise-xray'
-
-const getDependencyMetrics = (currentVersion: string, maxDate: Date) =>
-  (versions?: Versions) => {
-    if (!versions) return
-
-    return MetricsService.calculate({
-      maxDate,
-      version: currentVersion,
-      versions
-    })
-  }
 
 export const generate = async (
   contents: PackageContents,
@@ -49,7 +38,9 @@ export const generate = async (
 
   const promisedMetrics = deps.map((dependency) =>
     NpmService.versions(dependency)
-      .then(getDependencyMetrics(depsVersions[dependency], maxDate))
+      .then(MetricsGeneratorService.dependencyMetrics({
+        currentVersion: depsVersions[dependency], maxDate
+      }))
   )
 
   const rawMetrics = await all(promisedMetrics, bar)
