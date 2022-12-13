@@ -7,20 +7,20 @@ type Calculate = (props: {
   version: string
 }) => DependencyMetric
 
-const upToDate = { days: 0, releasesAvailable: 0 }
+const upToDate: DependencyMetric = { days: 0, releasesAvailable: 0 }
 
 export const calculate: Calculate = ({ maxDate, version, versions }) => {
   const releaseDates = Object.values(versions)
-  const selectedVersion = version.replace(/[^\d.-]/g, '')
-  const released = versions[selectedVersion]
+  const currentVersion = version.replace(/[^\d.-]/g, '')
+  const released = versions[currentVersion]
+
+  if (released == null) throw new Error(`failed to get release date for the version: ${version}`)
 
   const latestReleases = releaseDates
-    .filter(releaseDate => {
-      return (
-        releaseDate.getTime() > released.getTime() &&
-        releaseDate.getTime() <= maxDate.getTime()
-      )
-    })
+    .filter(releaseDate =>
+      releaseDate.getTime() > released.getTime() &&
+      releaseDate.getTime() <= maxDate.getTime()
+    )
     .sort((a: Date, b: Date) => a.getTime() - b.getTime())
 
   if (latestReleases.length === 0) return upToDate
