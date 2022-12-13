@@ -47,7 +47,7 @@ export const generate = async (
   // TODO: update to allSettled
   const rawMetrics = await all(metricsTasks, bar)
 
-  const metrics = rawMetrics.reduce<Metrics>(MetricsGeneratorService.metricsReducer(deps), {})
+  const metrics = rawMetrics.reduce<Metrics>(MetricsService.reducer(deps), {})
 
   bar.stop()
 
