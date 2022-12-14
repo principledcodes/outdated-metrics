@@ -3,7 +3,10 @@ import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, MetricsGeneratorService, ReportService } from './services'
 import { Dependency, Metrics, PackageContents } from './types'
-import { all } from '@elevatepartners/promise-xray'
+import { allSettled } from '@elevatepartners/promise-xray'
+
+// TODO: move this to libs
+const isResolved = <T>(result: PromiseSettledResult<T>): result is PromiseFulfilledResult<T> => result.status === 'fulfilled'
 
 export const generate = async (
   contents: PackageContents,
@@ -44,8 +47,9 @@ export const generate = async (
 
   const metricsTasks = MetricsGeneratorService.tasks({ deps, maxDate })
 
-  // TODO: update to allSettled
-  const rawMetrics = await all(metricsTasks, bar)
+  const rawMetrics = (await allSettled(metricsTasks, bar))
+    .filter(isResolved)
+    .map(result => result.value)
 
   const metrics = rawMetrics.reduce<Metrics>(MetricsService.reducer(deps), {})
 
