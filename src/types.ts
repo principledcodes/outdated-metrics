@@ -1,3 +1,10 @@
+export interface Dependency {
+  /** dependency name */
+  name: string
+  /** dependency current version */
+  version: string
+}
+
 export interface DependencyMetric {
   /** number of days since the next version was released */
   days: number

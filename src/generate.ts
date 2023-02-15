@@ -1,8 +1,12 @@
 import consola from 'consola'
 import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
-import { MetricsService, NpmService, ReportService } from './services'
-import { Metrics, PackageContents } from './types'
+import { MetricsService, MetricsGeneratorService, ReportService } from './services'
+import { Dependency, Metrics, PackageContents } from './types'
+import { allSettled } from '@elevatepartners/promise-xray'
+
+// TODO: move this to libs
+const isResolved = <T>(result: PromiseSettledResult<T>): result is PromiseFulfilledResult<T> => result.status === 'fulfilled'
 
 export const generate = async (
   contents: PackageContents,
@@ -18,13 +22,19 @@ export const generate = async (
   const {
     dependencies,
     devDependencies,
-    versions: allVersions
+    versions: depsVersions // current version for each dependency
   } = contents
 
-  let deps = [...dependencies, ...devDependencies]
+  let _deps = [...dependencies, ...devDependencies]
 
-  if (devOnly) deps = devDependencies
-  if (excludeDev) deps = dependencies
+  if (devOnly) _deps = devDependencies
+  if (excludeDev) _deps = dependencies
+
+  // TODO: contents should output Dependency[]
+  const deps: Dependency[] = _deps.map((dependencyName) => ({
+    name: dependencyName,
+    version: depsVersions[dependencyName]
+  }))
 
   const maxDate = maxDateInput == null ? new Date() : new Date(maxDateInput)
 
@@ -32,26 +42,16 @@ export const generate = async (
     consola.info(`Filtering out releases that occur after ${maxDateInput}`)
   }
 
-  const metrics: Metrics = {}
-
   const bar = new ProgressBar(silent)
   bar.start(deps.length, 0)
 
-  for await (const dependency of deps) {
-    const versions = await NpmService.versions(dependency)
+  const metricsTasks = MetricsGeneratorService.tasks({ deps, maxDate })
 
-    if (versions != null) {
-      const result = MetricsService.calculate({
-        maxDate,
-        version: allVersions[dependency],
-        versions
-      })
+  const rawMetrics = (await allSettled(metricsTasks, bar))
+    .filter(isResolved)
+    .map(result => result.value)
 
-      metrics[dependency] = result
-    }
-
-    bar.increment()
-  }
+  const metrics = rawMetrics.reduce<Metrics>(MetricsService.reducer(deps), {})
 
   bar.stop()
 
