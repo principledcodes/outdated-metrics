@@ -43,7 +43,7 @@
   "dependencies": {
     "@elevatepartners/promise-xray": "^0.2.0",
     "cli-progress": "^3.12.0",
-    "consola": "^3.0.2",
+    "consola": "^3.1.0",
     "isomorphic-fetch": "^3.0.0",
     "yargs": "^17.7.1"
   }
