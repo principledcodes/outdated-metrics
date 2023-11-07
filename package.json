@@ -29,7 +29,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/cli-progress": "^3.11.5",
-    "@types/isomorphic-fetch": "^0.0.36",
+    "@types/isomorphic-fetch": "^0.0.38",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.8.0",
     "@types/yargs": "^17.0.24",
