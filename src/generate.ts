@@ -3,10 +3,7 @@ import { BaseOptions } from './cli/options'
 import { ProgressBar } from './lib/progressBar'
 import { MetricsService, MetricsGeneratorService, ReportService } from './services'
 import { Dependency, Metrics, PackageContents } from './types'
-import { allSettled } from '@elevatepartners/promise-xray'
-
-// TODO: move this to libs
-const isResolved = <T>(result: PromiseSettledResult<T>): result is PromiseFulfilledResult<T> => result.status === 'fulfilled'
+import { allSettled, isResolved } from '@principledcodes/promise-xray'
 
 export const generate = async (
   contents: PackageContents,
