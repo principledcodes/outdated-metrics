@@ -33,7 +33,7 @@ jobs:
           for file in *; do sha256sum $file >> checksums.txt; done
 
       - name: Archive binaries
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: outdated-metrics
           path: dist/
