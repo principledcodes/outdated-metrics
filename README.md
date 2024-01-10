@@ -7,12 +7,12 @@ Metrics to help you quantify how outdated a package.json file is
 ### Homebrew
 If you're on macOS or Linux you can install a binary release using [brew](https://brew.sh/):
 ```sh
-$ brew tap elevatepartners/outdated-metrics
-$ brew install elevatepartners/outdated-metrics/outdated-metrics
+$ brew tap principledcodes/outdated-metrics
+$ brew install principledcodes/outdated-metrics/outdated-metrics
 ```
 
 ### Binary
-You can download the binary from the [releases](https://github.com/ElevatePartners/outdated-metrics/releases) page on GitHub and add to your `$PATH`.
+You can download the binary from the [releases](https://github.com/principledcodes/outdated-metrics/releases) page on GitHub and add to your `$PATH`.
 
 ## Usage
 
