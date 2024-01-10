@@ -1,0 +1,6 @@
+docs/
+node_modules/
+jest.config.ts
+package.json
+package-lock.json
+tsconfig.json
