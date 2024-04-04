@@ -46,7 +46,7 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
-    "@principledcodes/promise-xray": "^2.0.4",
+    "@principledcodes/promise-xray": "^2.0.5",
     "cli-progress": "^3.12.0",
     "consola": "^3.2.3",
     "isomorphic-fetch": "^3.0.0",
